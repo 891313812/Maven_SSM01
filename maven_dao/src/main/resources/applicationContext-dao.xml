@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!--让spring管理sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+
+        <property name="typeAliasesPackage" value="it.hehai.ssm.pojo"></property>
+    </bean>
+<!--创建数据库连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!-- 驱动 -->
+        <property name="driverClassName"
+                  value="com.mysql.jdbc.Driver" />
+        <!-- url -->
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/project_a" />
+        <!-- 用户名 -->
+        <property name="username" value="root" />
+        <!-- 密码 -->
+        <property name="password" value="123456" />
+
+    </bean>
+<!--配置扫描器 用来产生代理对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="it.hehai.ssm.mapper"></property>
+    </bean>
+
+</beans>
